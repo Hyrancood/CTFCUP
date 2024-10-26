@@ -65,7 +65,7 @@ def solve_for_step(pt, ct, step):
 
 def th(s, e, threadnum):
 	for num in range(s, e):
-		key = num.to_bytes(8)
+		key = bytes(num.to_bytes(8))
 		if num % 0x0010000000000000 == 0:
 			print(f'Thread-{threadnum}: {num}')
 		for step in range(1, 8):
@@ -82,7 +82,7 @@ if __name__ == "__main__":
 	steps = [0x0000000000000000, 0x2200000000000000, 0x4400000000000000, 0x6600000000000000, 
 	0x9900000000000000, 0xbb00000000000000, 0xdd00000000000000, 0xFFFFFFFFFFFFFFFF]
 	for i in range(len(steps) - 1):
-		p = mp.Process(target=th, args=[steps[i], steps[i+1], i])
+		p = mp.Process(target=th, args=[steps[i], steps[i+1], i+1])
 		p.start()
 		threads.append(p)
 
