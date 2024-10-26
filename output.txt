@@ -1,0 +1,11 @@
+pts= ['72deb739d21e8f16', 'bf39b4520b07dcee', '3094fecd0dfcf200', '891a4a6f59ea71a7', 'bad8e33a2bdc6a15', '385286eefdb90da1', '83b37daa49e67c9c', 'f0561f5f6200174d']
+cts= ['b90e3a29da293bdf', '7df0fbe6feb4a246', '1b37fc8c0c08051d', 'bc1938df1bddbbd0', 'c62dc28f99c53b6e', '11829c9442700374', '1d08131ee7f49132', '2be7d18fb6cdcce7']
+out = 
+'72 de b7 39 d2 1e 8f 16 ': '0e df b9 3b 3a 29 da 29 '
+'bf 39 b4 52 0b 07 dc ee ': 'b4 f0 7d 46 fb fe e6 a2 '
+'30 94 fe cd 0d fc f2 00 ': '8c 08 05 fc 1b 0c 37 1d '
+'89 1a 4a 6f 59 ea 71 a7 ': 'dd 1b 38 df bc d0 bb 19 '
+'ba d8 e3 3a 2b dc 6a 15 ': 'c2 c5 6e 3b 8f 99 c6 2d '
+'38 52 86 ee fd b9 0d a1 ': '82 94 03 70 9c 11 42 74 '
+'83 b3 7d aa 49 e6 7c 9c ': '08 32 1d 1e 13 91 f4 e7 '
+'f0 56 1f 5f 62 00 17 4d ': 'b6 d1 8f cd cc 2b e7 e7 '
