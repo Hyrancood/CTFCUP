@@ -1,6 +1,5 @@
 import itertools as itr
 import random
-import task as t
 import threading
 import multiprocessing as mp
 
@@ -33,10 +32,8 @@ def hex8(h):
 def unmix(bs, step):
 	return bytes(bs[8-step:]+bs[:8-step])
 
-
 def unsub(bs):
 	bytes(SBOX.index(x) for x in bs)
-
 
 def xor_bytes(a, b):
     assert len(a) == len(b)
@@ -58,45 +55,34 @@ def inzip(bs, key, step):
 		ct = mix_bytes(ct, step)
 	return ct
 
-def th(s, e):
-	for b0 in range(s, e):
-		print(f'b0 - {b0}')
-		for b1 in range(64):
-			print(f'b1 - {b1}')
-			for b2 in range(64):
-				print(f'b2 - {b2}')
-				for b3 in range(64):
-					print(f'b3 - {b3}')
-					for b4 in range(64):
-						print(f'b4 - {b4}')
-						for b5 in range(64):
-							print(f'b5 - {b5}')
-							for b6 in range(64):
-								for b7 in range(64):
-									k = [b0, b1, b2, b3, b4, b5, b6, b7]
-									key = bytes(k)
-									for step in range(1, 7):
-										b = [False for _ in range(8)]
-										for i in range(8):
-											pt = bpts[i]
-											ctr = bpts[i]
-											ct1 = inzip(pt, key, step)
-											b[i] = all(bs in ctr for bs in ct1)
-										if all(byte for byte in b):
-											print('ctfcup{' + key.hex() + '}')
-											open('answer.txt', 'a').write('ctfcup{' + key.hex() + '}\n')
-											return 'ctfcup{' + key.hex() + '}'
-	return ''
+
+def solve_for_step(pt, ct, step):
+	key = ''
+	#for byte in 
+	#mix_bytes(sub_bytes(xor_bytes(pt, key)), step)
+	#unsub(unmix(ct, step))
 
 
+def th(s, e, threadnum):
+	for num in range(s, e):
+		key = num.to_bytes(8)
+		if num % 0x0010000000000000 == 0:
+			print(f'Thread-{threadnum}: {num}')
+		for step in range(1, 8):
+			ctr = sorted([inzip(ct, key, step) for ct in bpts])
+			res = sorted(bcts)
+			if all(ctr[i] == res[i] for i in range(8)):
+				print(f'Thread-{threadnum}: ' + 'ctfcup{' + key.hex() + '}')
+				open('answer.txt', 'a').write('ctfcup{' + key.hex() + '}\n')
+				return 'ctfcup{' + key.hex() + '}'
 
 
 if __name__ == "__main__":
 	threads = []
-	steps = [0, 8, 16, 24, 32, 40, 48, 64]
+	steps = [0x0000000000000000, 0x2200000000000000, 0x4400000000000000, 0x6600000000000000, 
+	0x9900000000000000, 0xbb00000000000000, 0xdd00000000000000, 0xFFFFFFFFFFFFFFFF]
 	for i in range(len(steps) - 1):
-		p = mp.Process(target=th, args=[steps[i], steps[i+1]])
-		print(1)
+		p = mp.Process(target=th, args=[steps[i], steps[i+1], i])
 		p.start()
 		threads.append(p)
 
