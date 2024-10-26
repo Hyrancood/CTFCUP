@@ -86,6 +86,7 @@ def th(s, e):
 											print('ctfcup{' + key.hex() + '}')
 											open('answer.txt', 'a').write('ctfcup{' + key.hex() + '}\n')
 											return 'ctfcup{' + key.hex() + '}'
+	return ''
 
 
 
@@ -94,9 +95,9 @@ if __name__ == "__main__":
 	threads = []
 	steps = [0, 8, 16, 24, 32, 40, 48, 64]
 	for i in range(len(steps) - 1):
-		threads.append(mp.Process(target=th, args=[steps[i], steps[i+1]]))
-	for th in threads:
-		th.start()
-
+		p = mp.Process(target=th, args=[steps[i], steps[i+1]])
+		print(1)
+		p.start()
+		threads.append(p)
 
 	
